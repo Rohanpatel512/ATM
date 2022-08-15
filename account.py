@@ -14,7 +14,8 @@ import mysql.connector
 from options import Options
 from tkinter import *
 from tkinter import messagebox
-
+from dotenv import load_dotenv
+import os
 
 class Account:
 
@@ -28,8 +29,9 @@ class Account:
             none
         --------------------------------------------
         """
-        self.database = mysql.connector.connect (host="127.0.0.1", user="root", passwd="Myappdb3031*",
-             database="atmdatabase", auth_plugin='mysql_native_password')
+        load_dotenv()
+        self.database = mysql.connector.connect(host=os.getenv("HOST"), user=os.getenv("USER"), passwd=os.getenv("PASSWORD"),
+             database=os.getenv("DATABASE"), auth_plugin=os.getenv("AUTH_PlUGIN"))
         self.cursor = self.database.cursor(buffered=True)
 
 
