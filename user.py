@@ -14,7 +14,8 @@ _updated_= "2022-07-26"
 import mysql.connector
 from math import floor
 from tkinter import messagebox
-
+from dotenv import load_dotenv
+import os
 
 class User:
 
@@ -29,12 +30,13 @@ class User:
             none
         ---------------------------------------------
         """
+        load_dotenv()
         # Initializes variables
         self.account_number = account_number
         self.pin_number = pin_number
         self.balance = 0
-        self.database = mysql.connector.connect(host="127.0.0.1", user="root", passwd="Myappdb3031*",
-             database="atmdatabase", auth_plugin='mysql_native_password')
+        self.database = mysql.connector.connect(host=os.getenv("HOST"), user=os.getenv("USER"), passwd=os.getenv("PASSWORD"),
+             database=os.getenv("DATABASE"), auth_plugin=os.getenv("AUTH_PLUGIN"))
         self.cursor = self.database.cursor(buffered=True)
 
         self.set_balance()
